@@ -33,7 +33,7 @@ def createScatterPlot(data, countries, yrs, yTitle = None):
     plt.legend()
     plt.show()
     
-def createStackedBar(data, countries, yrs, pltTitle = None, yTitle = None):
+def createStackedBar(data, countries, yrs, pltTitle = None, yTitle = None, region = None, save=False):
     dtPlt = data[data.Country.isin(countries)].fillna(0).T
     yrLbl = ['1860-69', '70-79', '80-89', '90-99', '1900-09', '10-19', '20-29', '30-39', '40-49',
      '50-59', '60-69', '70-79', '80-89', '90-99', '2000-09', '10-16']
@@ -55,3 +55,7 @@ def createStackedBar(data, countries, yrs, pltTitle = None, yTitle = None):
     plt.tight_layout(pad=0.4, w_pad=0.5, h_pad=1.0)
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), frameon=False)
     plt.show()
+    if (save & (region is not None)):
+        fig.savefig(region + '_' + pltTitle + '.png', dpi=250, bbox_inches='tight')
+    elif (save & (region is None)): 
+        fig.savefig(pltTitle + '.png', dpi=250, bbox_inches='tight')
